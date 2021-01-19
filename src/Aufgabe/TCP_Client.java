@@ -18,12 +18,14 @@ public class TCP_Client {
 			s = new Socket(hostname, serverPort);
 			System.out.println("Connected to echo server");
 			networkIn = new BufferedReader( new InputStreamReader(s.getInputStream()));
+			System.out.println(networkIn.readLine());
 			BufferedReader userIn = new BufferedReader( new InputStreamReader(System.in));
 			networkOut = new PrintWriter(s.getOutputStream());
 			
 			while(true) {
 				String theLine = userIn.readLine();
 				if(theLine.equals(".")) {
+					networkOut.flush();
 					break;
 				}//if
 				networkOut.println(theLine);
@@ -32,14 +34,18 @@ public class TCP_Client {
 			}//while
 			
 		}catch(IOException e){
+			System.out.println("Bis hier");
 			System.err.println(e);
 		}
 		finally {
 			try {
 				if(s != null) {
+					System.out.println("Verbindung wird geschlossen");
 					s.close();
 				}//if				
-			}catch (IOException e) {}
+			}catch (IOException e) {
+				System.out.println(e.getMessage());
+			}
 			
 			
 		}//finally		
