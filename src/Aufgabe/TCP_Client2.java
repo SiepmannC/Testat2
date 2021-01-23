@@ -8,7 +8,8 @@ import java.net.Socket;
 
 public class TCP_Client2 {
 	
-	
+	// Zweiter Client zum Testen, exakt gleich
+
 	private static final int serverPort = 7777;
 	
 	public static void main (String[] args) {
@@ -25,7 +26,7 @@ public class TCP_Client2 {
 			System.out.println(networkIn.readLine());
 			BufferedReader userIn = new BufferedReader( new InputStreamReader(System.in));
 			networkOut = new PrintWriter(s.getOutputStream());
-			
+
 			while(true) {
 				String theLine = userIn.readLine();
 				if(theLine.equals(".")) {
@@ -36,7 +37,7 @@ public class TCP_Client2 {
 				networkOut.flush();
 				System.out.println(networkIn.readLine());
 			}//while
-			
+
 		}catch(IOException e){
 			System.err.println(e.toString());
 		}
@@ -45,7 +46,7 @@ public class TCP_Client2 {
 				if(s != null) {
 					System.out.println("Es besteht keine Verbindung");
 					s.close();
-					//main(new String[2]);
+					//main(args); Diese Zeile wieder verwenden, wenn der Client2 sich neu vebinden soll
 				}//if				
 			}catch (IOException e) {
 				System.out.println(e.getMessage());

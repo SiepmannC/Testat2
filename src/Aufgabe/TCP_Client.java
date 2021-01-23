@@ -5,7 +5,6 @@ import java.io.*;
 
 public class TCP_Client {
 
-
     private static final int serverPort = 7777;
 
     public static void main(String[] args) {
@@ -16,6 +15,7 @@ public class TCP_Client {
         Socket s = null;
 
         try {
+            // Verbinden und BufferedReader sowie Printwriter initialisieren
             s = new Socket(hostname, serverPort);
             System.out.println("Client1 Verbunden");
             networkIn = new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -25,10 +25,12 @@ public class TCP_Client {
 
             while (true) {
                 String theLine = userIn.readLine();
-                if (theLine.equals(".")) {
+                // Session freiwillig beenden mit END
+                if (theLine.equals("END")) {
                     networkOut.flush();
                     break;
                 }//if
+                // Empfangen vom Server und absenden
                 networkOut.println(theLine);
                 networkOut.flush();
                 System.out.println(networkIn.readLine());
@@ -41,7 +43,7 @@ public class TCP_Client {
                 if (s != null) {
                     System.out.println("Es besteht keine Verbindung");
                     s.close();
-                    //main(new String[2]);
+                    //main(args); Diese Zeile wiedereinfügen, wenn der Client sich immer wieder neu verbinden soll
                 }//if
             } catch (IOException e) {
                 System.out.println(e.getMessage());
