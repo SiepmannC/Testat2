@@ -3,21 +3,18 @@ package Aufgabe;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
 import java.util.Scanner;
-import java.util.concurrent.SynchronousQueue;
 
 public class TCP_Server {
-    public final static int DEFAULT_PORT = 7777;
+    private final static int DEFAULT_PORT = 7777;
 
 
     public static void main(String[] args) {
-        int port = DEFAULT_PORT;
-        PrintWriter out = null;
+        PrintWriter out;
         Socket connection = null;
-        BufferedReader networkIn = null;
+        BufferedReader networkIn;
         try {
-            ServerSocket server = new ServerSocket(port);
+            ServerSocket server = new ServerSocket(DEFAULT_PORT);
             while (true) {
                 try {
                     connection = server.accept();
@@ -110,7 +107,7 @@ public class TCP_Server {
                 }
             }
         } catch (IOException e) {
-            System.err.println(e);
+            System.err.println(e.toString());
         }
     }
 }

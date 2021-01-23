@@ -6,7 +6,7 @@ import java.io.*;
 public class TCP_Client {
 
 
-    public static final int serverPort = 7777;
+    private static final int serverPort = 7777;
 
     public static void main(String[] args) {
 
