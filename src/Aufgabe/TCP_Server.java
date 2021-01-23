@@ -36,7 +36,7 @@ public class TCP_Server {
                                 while (true) { // Falls Key belegt sein sollte, wird ein neuer erstellt, solange bis ein freier Schlüssel gefunden wurde
                                     long key = (long) (Math.random() * 1000000000);
                                     String filename = "File_" + key + ".txt";
-                                    String fullPath = System.getProperty("user.home") + "\\Desktop\\Messages\\" + filename;
+                                    String fullPath = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Messages" + File.separator + filename;
                                     File file = new File(fullPath);
                                     // Das eigentliche Schreiben im richtigen Ordner, mit dem richtigen Namen geschieht hier
                                     if (file.createNewFile()) {
@@ -62,7 +62,7 @@ public class TCP_Server {
                         } else if (line.startsWith("GET")) {
                             String key = line.substring(4);
                             String filename = "File_" + key + ".txt";
-                            String fullPath = System.getProperty("user.home") + "\\Desktop\\Messages\\" + filename;
+                            String fullPath = System.getProperty("user.home") + File.separator + "Desktop" + File.separator + "Messages" + File.separator + filename;
                             try {
                                 // Das eigentliche Lesen geschieht hier
                                 File file = new File(fullPath);
