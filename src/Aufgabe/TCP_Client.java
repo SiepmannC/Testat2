@@ -11,8 +11,8 @@ public class TCP_Client {
     public static void main(String[] args) {
 
         String hostname = "localhost";
-        PrintWriter networkOut = null;
-        BufferedReader networkIn = null;
+        PrintWriter networkOut;
+        BufferedReader networkIn;
         Socket s = null;
 
         try {
