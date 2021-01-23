@@ -3,20 +3,18 @@ package Aufgabe;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Date;
 import java.util.Scanner;
 
 public class TCP_Server {
-    public final static int DEFAULT_PORT = 7777;
+    private final static int DEFAULT_PORT = 7777;
 
 
     public static void main(String[] args) {
-        int port = DEFAULT_PORT;
-        PrintWriter out = null;
+        PrintWriter out;
         Socket connection = null;
-        BufferedReader networkIn = null;
+        BufferedReader networkIn;
         try {
-            ServerSocket server = new ServerSocket(port);
+            ServerSocket server = new ServerSocket(DEFAULT_PORT);
             while (true) {
                 try {
                     connection = server.accept();
@@ -34,7 +32,7 @@ public class TCP_Server {
                             System.out.println(message);
                             // In ein Dokument schreiben
                             try {
-                                while(true) { // Falls Key belegt sein sollte, wird ein neuer erstellt
+                                while (true) { // Falls Key belegt sein sollte, wird ein neuer erstellt
                                     long key = (long) (Math.random() * 1000000000);
                                     String filename = "File_" + key + ".txt";
                                     String fullPath = System.getProperty("user.home") + "\\Desktop\\Messages\\" + filename;
@@ -73,24 +71,43 @@ public class TCP_Server {
                                 out.println(data);
                                 out.flush();
                             } catch (FileNotFoundException e) {
-                                //out.println("File mit dem Key: " + key + " wurde nicht gefunden");
+                                System.out.println("File mit dem Key: " + key + " wurde nicht gefunden");
                                 out.println("FAILED");
                                 out.flush();
                             }
+                        } else {
+                            try {
+                                out.println("Befehl nicht erkannt");
+                                out.flush();
+                                System.out.println("Falscher Befehl, Verbindung wird geschlossen");
+                                connection.close();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
+
+                    try {
+                        System.out.println("Verbindung wird geschlossen");
+                        out.flush();
+                        connection.close();
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 } finally {
-                    /*try {
+                    try {
                         if (connection != null) connection.close();
                     } catch (IOException e) {
                         e.printStackTrace();
-                    }*/
+                    }
                 }
             }
         } catch (IOException e) {
-            System.err.println(e);
+            System.err.println(e.toString());
         }
     }
 }
